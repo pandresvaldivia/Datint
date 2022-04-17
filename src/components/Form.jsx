@@ -31,12 +31,23 @@ const Form = ({ patients, setPatients }) => {
 		}, 1000);
 	};
 
+	const handleReset = () => {
+		setName('');
+		setOwner('');
+		setEmail('');
+		setDischarge('');
+		setSymptom('');
+	};
+
 	const validateForm = (e) => {
 		e.preventDefault();
 
 		[name, owner, email, discharge, symptom].includes('')
 			? printError()
 			: setPatients([...patients, patient]);
+
+		handleReset();
+		console.log(patients);
 	};
 
 	return (
@@ -57,12 +68,14 @@ const Form = ({ patients, setPatients }) => {
 						label="Nombre mascota"
 						placeholder="Nombre de la mascota"
 						setValue={setName}
+						value={name}
 					/>
 					<FormInput
 						id="owner-name"
 						label="Nombre del propietario"
 						placeholder="Nombre del propietario"
 						setValue={setOwner}
+						value={owner}
 					/>
 					<FormInput
 						id="contact-email"
@@ -70,12 +83,14 @@ const Form = ({ patients, setPatients }) => {
 						label="Correo electrónico"
 						placeholder="Correo electrónico"
 						setValue={setEmail}
+						value={email}
 					/>
 					<FormInput
 						id="discharge-date"
 						type="date"
 						label="Fecha de alta"
 						setValue={setDischarge}
+						value={discharge}
 					/>
 					<FormInput
 						id="symptom"
@@ -83,6 +98,7 @@ const Form = ({ patients, setPatients }) => {
 						label="Síntomas"
 						placeholder="Describe los síntomas"
 						setValue={setSymptom}
+						value={symptom}
 					/>
 					<FormButton value="Agregar paciente" />
 				</fieldset>
