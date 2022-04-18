@@ -7,7 +7,8 @@ const AppointmentCard = ({
 	email,
 	dischargeDate,
 	symptom,
-	onClick,
+	onClickEdit,
+	onClickDelete,
 }) => (
 	<article className="mx-3 mb-3 bg-white shadow-md px-5 py-10 rounded-lg">
 		<p className="font-bold mb-3 text-gray-700 uppercase">
@@ -29,11 +30,12 @@ const AppointmentCard = ({
 		</p>
 
 		<div className="flex justify-end gap-2 mt-6">
-			<CardButton text="Editar" onClick={onClick} />
+			<CardButton text="Editar" onClick={onClickEdit} />
 			<CardButton
 				text="Eliminar"
 				color="bg-red-600"
 				hoverColor="hover:bg-red-700"
+				onClick={onClickDelete}
 			/>
 		</div>
 	</article>
@@ -45,7 +47,8 @@ AppointmentCard.propTypes = {
 	email: PropTypes.string.isRequired,
 	dischargeDate: PropTypes.string.isRequired,
 	symptom: PropTypes.string.isRequired,
-	onClick: PropTypes.func.isRequired,
+	onClickEdit: PropTypes.func.isRequired,
+	onClickDelete: PropTypes.func.isRequired,
 };
 
 export default AppointmentCard;

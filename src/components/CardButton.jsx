@@ -13,7 +13,7 @@ const CardButton = ({ text, color, hoverColor, onClick }) => {
 
 CardButton.propTypes = {
 	text: PropTypes.string.isRequired,
-	onClick: PropTypes.func,
+	onClick: PropTypes.func.isRequired,
 	color: PropTypes.string,
 	hoverColor: PropTypes.string,
 };
@@ -21,7 +21,6 @@ CardButton.propTypes = {
 CardButton.defaultProps = {
 	color: 'bg-indigo-600',
 	hoverColor: 'hover:bg-indigo-700',
-	onClick: () => {},
 };
 
 export default CardButton;

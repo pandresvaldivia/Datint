@@ -147,6 +147,8 @@ const Form = ({ patients, setPatients, patient, setPatient }) => {
 Form.propTypes = {
 	patients: PropTypes.array.isRequired,
 	setPatients: PropTypes.func.isRequired,
+	patient: PropTypes.object.isRequired,
+	setPatient: PropTypes.func.isRequired,
 };
 
 export default Form;

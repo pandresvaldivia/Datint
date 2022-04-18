@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AppointmentCard from './AppointmentCard';
 import SectionHeader from './SectionHeader';
 
-const PatientsList = ({ patients, onClick }) => {
+const PatientsList = ({ patients, onClickEdit, onClickDelete }) => {
 	return (
 		<div className="md:w-1/2 lg:w-3/5">
 			{patients && patients.length ? (
@@ -26,7 +26,8 @@ const PatientsList = ({ patients, onClick }) => {
 									email={email}
 									dischargeDate={discharge}
 									symptom={symptom}
-									onClick={() => onClick(patientInfo)}
+									onClickEdit={() => onClickEdit(patientInfo)}
+									onClickDelete={() => onClickDelete(id)}
 								/>
 							);
 						})}
@@ -47,7 +48,8 @@ const PatientsList = ({ patients, onClick }) => {
 
 PatientsList.propTypes = {
 	patients: PropTypes.array.isRequired,
-	onClick: PropTypes.func.isRequired,
+	onClickEdit: PropTypes.func.isRequired,
+	onClickDelete: PropTypes.func.isRequired,
 };
 
 export default PatientsList;
