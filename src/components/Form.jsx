@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import FormButton from './FormButton';
@@ -6,7 +6,14 @@ import SectionHeader from './SectionHeader';
 import FormInput from './FormInput';
 import Alert from './Alert';
 
-const Form = ({ patients, setPatients }) => {
+const createId = () => {
+	const date = Date.now().toString(36);
+	const random = Math.random().toString(36).substring(2);
+
+	return `${date}${random}`;
+};
+
+const Form = ({ patients, setPatients, patient, setPatient }) => {
 	const [name, setName] = useState('');
 	const [owner, setOwner] = useState('');
 	const [email, setEmail] = useState('');
@@ -15,12 +22,32 @@ const Form = ({ patients, setPatients }) => {
 
 	const [error, setError] = useState(false);
 
-	const patient = {
-		name,
-		owner,
-		email,
-		discharge,
-		symptom,
+	useEffect(() => {
+		if (Object.keys(patient).length > 0) {
+			setName(patient.name);
+			setOwner(patient.owner);
+			setEmail(patient.email);
+			setDischarge(patient.discharge);
+			setSymptom(patient.symptom);
+		}
+	}, [patient]);
+
+	const createPatient = () => {
+		const newPatient = {
+			name: name.trim(),
+			owner: owner.trim(),
+			email: email.trim(),
+			discharge: discharge.trim(),
+			symptom: symptom.trim(),
+		};
+
+		if (patient.id) {
+			newPatient.id = patient.id;
+		} else {
+			newPatient.id = createId();
+		}
+
+		return newPatient;
 	};
 
 	const printError = () => {
@@ -42,12 +69,20 @@ const Form = ({ patients, setPatients }) => {
 	const validateForm = (e) => {
 		e.preventDefault();
 
-		[name, owner, email, discharge, symptom].includes('')
-			? printError()
-			: setPatients([...patients, patient]);
+		[name, owner, email, discharge, symptom].includes('') && printError();
+
+		if (patient.id) {
+			const patientsUpdated = patients.map((originalPatient) =>
+				originalPatient.id === patient.id ? createPatient() : originalPatient
+			);
+
+			setPatients(patientsUpdated);
+			setPatient({});
+		} else {
+			setPatients([...patients, createPatient()]);
+		}
 
 		handleReset();
-		console.log(patients);
 	};
 
 	return (
@@ -100,7 +135,9 @@ const Form = ({ patients, setPatients }) => {
 						setValue={setSymptom}
 						value={symptom}
 					/>
-					<FormButton value="Agregar paciente" />
+					<FormButton
+						value={patient.id ? 'Actualizar paciente' : 'Agregar paciente'}
+					/>
 				</fieldset>
 			</form>
 		</div>

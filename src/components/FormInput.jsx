@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useEffect } from 'react/cjs/react.production.min';
 
 const FormInput = ({ id, label, placeholder, setValue, value, type }) => {
 	return (
@@ -11,7 +12,7 @@ const FormInput = ({ id, label, placeholder, setValue, value, type }) => {
 					id={id}
 					placeholder={placeholder}
 					className="form-input border-2 w-full p-2 mt-2 rounded-md placeholder-gray-400 mb-5"
-					onChange={(e) => setValue(e.target.value.trim())}
+					onChange={(e) => setValue(e.target.value)}
 					value={value}
 				/>
 			) : (
@@ -20,7 +21,7 @@ const FormInput = ({ id, label, placeholder, setValue, value, type }) => {
 					type={type}
 					placeholder={placeholder}
 					className="form-input border-2 w-full p-2 mt-2 rounded-md placeholder-gray-400 mb-5"
-					onChange={(e) => setValue(e.target.value.trim())}
+					onChange={(e) => setValue(e.target.value)}
 					value={value}
 				/>
 			)}

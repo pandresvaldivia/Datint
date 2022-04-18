@@ -1,6 +1,14 @@
 import PropTypes from 'prop-types';
+import CardButton from './CardButton';
 
-const AppointmentCard = ({ name, owner, email, dischargeDate, symptom }) => (
+const AppointmentCard = ({
+	name,
+	owner,
+	email,
+	dischargeDate,
+	symptom,
+	onClick,
+}) => (
 	<article className="mx-3 mb-3 bg-white shadow-md px-5 py-10 rounded-lg">
 		<p className="font-bold mb-3 text-gray-700 uppercase">
 			Nombre: <span className="font-normal normal-case">{name}</span>
@@ -19,6 +27,15 @@ const AppointmentCard = ({ name, owner, email, dischargeDate, symptom }) => (
 		<p className="font-bold mb-3 text-gray-700 uppercase">
 			Síntomas: <span className="font-normal normal-case">{symptom}</span>
 		</p>
+
+		<div className="flex justify-end gap-2 mt-6">
+			<CardButton text="Editar" onClick={onClick} />
+			<CardButton
+				text="Eliminar"
+				color="bg-red-600"
+				hoverColor="hover:bg-red-700"
+			/>
+		</div>
 	</article>
 );
 
@@ -28,6 +45,7 @@ AppointmentCard.propTypes = {
 	email: PropTypes.string.isRequired,
 	dischargeDate: PropTypes.string.isRequired,
 	symptom: PropTypes.string.isRequired,
+	onClick: PropTypes.func.isRequired,
 };
 
 export default AppointmentCard;
