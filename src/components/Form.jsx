@@ -86,7 +86,7 @@ const Form = ({ patients, setPatients, patient, setPatient }) => {
 	};
 
 	return (
-		<div className="md:w-1/2 lg:w-2/5">
+		<div className="md:w-1/2 lg:w-2/5 mb-8 md:mb-0">
 			<SectionHeader
 				title="Seguimiento Pacientes"
 				text="Agrega Pacientes y"
