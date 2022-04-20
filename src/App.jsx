@@ -28,7 +28,6 @@ const App = () => {
 			<Header />
 			<div className="md:flex mt-12">
 				<Form
-					patients={patients}
 					setPatients={setPatients}
 					patient={patient}
 					setPatient={setPatient}

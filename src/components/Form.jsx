@@ -13,7 +13,7 @@ const createId = () => {
 	return `${date}${random}`;
 };
 
-const Form = ({ patients, setPatients, patient, setPatient }) => {
+const Form = ({ setPatients, patient, setPatient }) => {
 	const [name, setName] = useState('');
 	const [owner, setOwner] = useState('');
 	const [email, setEmail] = useState('');
@@ -66,20 +66,25 @@ const Form = ({ patients, setPatients, patient, setPatient }) => {
 		setSymptom('');
 	};
 
+	const updatePatients = (patients) => {
+		const patientsUpdated = patients.map((originalPatient) =>
+			originalPatient.id === patient.id ? createPatient() : originalPatient
+		);
+
+		return patientsUpdated;
+	};
+
 	const validateForm = (e) => {
 		e.preventDefault();
 
-		[name, owner, email, discharge, symptom].includes('') && printError();
+		if ([name, owner, email, discharge, symptom].includes(''))
+			return printError();
 
 		if (patient.id) {
-			const patientsUpdated = patients.map((originalPatient) =>
-				originalPatient.id === patient.id ? createPatient() : originalPatient
-			);
-
-			setPatients(patientsUpdated);
+			setPatients((patients) => updatePatients(patients));
 			setPatient({});
 		} else {
-			setPatients([...patients, createPatient()]);
+			setPatients((patients) => [...patients, createPatient()]);
 		}
 
 		handleReset();
@@ -145,7 +150,6 @@ const Form = ({ patients, setPatients, patient, setPatient }) => {
 };
 
 Form.propTypes = {
-	patients: PropTypes.array.isRequired,
 	setPatients: PropTypes.func.isRequired,
 	patient: PropTypes.object.isRequired,
 	setPatient: PropTypes.func.isRequired,
